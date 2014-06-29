@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.map.BookInfoMapper">
+  <!-- JavaのファイルとDBのテーブル構成のマッピング情報を記述 -->
+  <resultMap type="BookInfo" id="BookInfoResult">
+    <result column="isbn"           property="isbn"          />
+    <result column="title"          property="title"         />
+    <result column="author"         property="author"        />
+    <result column="price"          property="price"         />
+    <result column="publish"        property="publish"       />
+    <result column="published_date" property="publishedDate" />
+  </resultMap>
+  <select id="selectAll" resultMap="BookInfoResult" >
+    SELECT isbn,title,author,price,publish,published_date FROM BOOK_INFO;
+  </select>
+
+  <select id="selectByValue" resultMap="BookInfoResult" parameterType ="BookInfo">
+    SELECT isbn,title,author,price,publish,published_date FROM BOOK_INFO
+    <where>
+      <if test= "isbn4where           != null ">AND isbn           = #{isbn4where}           </if>
+      <if test= "title4where          != null ">AND title          = #{title4where}          </if>
+      <if test= "author4where         != null ">AND author         = #{author4where}         </if>
+      <if test= "price4where          != null ">AND price          = #{price4where}          </if>
+      <if test= "publish4where        != null ">AND publish        = #{publish4where}        </if>
+      <if test= "publishedDate4where  != null ">AND published_date = #{publishedDate4where}  </if>
+    </where>
+  </select>
+
+  <insert id="insert" parameterType="BookInfo" >
+    INSERT INTO BOOK_INFO ( isbn,title,author,price,publish,published_date ) 
+    VALUES (#{isbn},#{title},#{author},#{price},#{publish},#{publishedDate});
+  </insert>
+
+  <update id="updateByValue" parameterType="BookInfo" >
+    UPDATE  BOOK_INFO
+    <set>
+      <if test="isbn          != null ">isbn           = #{isbn}          ,</if>
+      <if test="title         != null ">title          = #{title}         ,</if>
+      <if test="author        != null ">author         = #{author}        ,</if>
+      <if test="price         != null ">price          = #{price}         ,</if>
+      <if test="publish       != null ">publish        = #{publish}       ,</if>
+      <if test="publishedDate != null ">published_date = #{publishedDate} ,</if>
+    </set>
+    <where>
+      <if test= "isbn4where           != null ">AND isbn           = #{isbn4where}           </if>
+      <if test= "title4where          != null ">AND title          = #{title4where}          </if>
+      <if test= "author4where         != null ">AND author         = #{author4where}         </if>
+      <if test= "price4where          != null ">AND price          = #{price4where}          </if>
+      <if test= "publish4where        != null ">AND publish        = #{publish4where}        </if>
+      <if test= "publishedDate4where  != null ">AND published_date = #{publishedDate4where}  </if>
+    </where>
+  </update>
+
+  <delete id="deleteByValue" parameterType="BookInfo" >
+    DELETE FROM BOOK_INFO
+    <where>
+      <if test= "isbn4where           != null ">AND isbn           = #{isbn4where}           </if>
+      <if test= "title4where          != null ">AND title          = #{title4where}          </if>
+      <if test= "author4where         != null ">AND author         = #{author4where}         </if>
+      <if test= "price4where          != null ">AND price          = #{price4where}          </if>
+      <if test= "publish4where        != null ">AND publish        = #{publish4where}        </if>
+      <if test= "publishedDate4where  != null ">AND published_date = #{publishedDate4where}  </if>
+    </where>
+  </delete>
+</mapper>
